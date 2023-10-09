@@ -14,5 +14,6 @@ It works by creating an `Express` app with the router created by the `AdminJS pl
 - Changing the package type to module may have some side effects. If there is any library that uses CommonJS in your project, the whole setup won't work. I would recommend to use an older version of AdminJS as an alternative for that scenario, although I'm not sure if those are mantained.
 - This setup is not a guide on how to use neither `NextJS` nor `AdminJS`, it's just a demo of how I managed to get both playing "nicely" together.
 - The `AdminJS` docs (recommend to setup a file watcher in development)[https://docs.adminjs.co/installation/getting-started#frontend-bundling]. There, they mentioned the following:
-> you would bundle all frontend files during build step of your deployment process
-but I'm not sure on how to do that with `AdminJS` and also on how this step would be integrated with `NextJS'` build step.
+  > you would bundle all frontend files during build step of your deployment process
+
+  I'm not sure on how to do that with `AdminJS` and also on how this step would be integrated with `NextJS'` build step.
