@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  rewrites: () => [
+    {
+      source: '/:admin*',
+      destination: '/api/:admin*',
+    },
+  ],
+}
 
-module.exports = nextConfig
+export default nextConfig;
