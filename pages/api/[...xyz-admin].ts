@@ -1,28 +1,41 @@
-import AdminJS from 'adminjs'
-import AdminJSExpress from '@adminjs/express'
-import express, { Request, Response, Router } from 'express';
+import AdminJS from "adminjs";
+import AdminJSExpress from "@adminjs/express";
+import express, { Request, Response } from "express";
 
-const admin = new AdminJS({
-  rootPath: '/admin',
+import { AdminJSOptions } from "adminjs";
+
+console.log("running adminjs");
+
+const options: AdminJSOptions = {
+  rootPath: "/xyz-admin",
   branding: {
-    companyName: 'My Company',
+    companyName: "My Company",
     withMadeWithLove: false,
   },
-})
+  locale: {
+    language: "en", // default language
+    availableLanguages: ["en"],
+    localeDetection: true,
+  },
+};
 
-const adminRouter = AdminJSExpress.buildRouter(admin)
+const adminJs = new AdminJS(options);
+
+const adminRouter = AdminJSExpress.buildRouter(adminJs);
 
 const app = express();
 
-app.use(admin.options.rootPath, adminRouter)
+app.use(adminJs.options.rootPath, adminRouter);
 //app.use("/api/admin", adminRouter)
 
-export default (req: Request, res: Response) =>  {
+adminJs.watch();
+
+const handler = (req: Request, res: Response) => {
   app(req, res, (err) => {
-    console.log('express handling')
+    console.log("express handling");
 
     if (!res.headersSent) {
-      console.warn('no headers sent')
+      console.warn("no headers sent");
     }
 
     if (err) {
@@ -34,6 +47,8 @@ export default (req: Request, res: Response) =>  {
   });
 };
 
+export default handler;
+
 export const config = {
   api: {
     // Defaults to true. Setting this to false disables body parsing and allows you to consume the request body as stream or raw-body.
@@ -43,6 +58,6 @@ export const config = {
     // responseLimit: false,
 
     // Disables warnings for unresolved requests if the route is being handled by an external resolver like Express.js or Connect. Defaults to false.
-    externalResolver: true, 
+    externalResolver: true,
   },
-}
+};
